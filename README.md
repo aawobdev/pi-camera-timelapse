@@ -1,5 +1,8 @@
 # pi-camera-timelapse
 
+Heavily inspired by:
+* Armin Hinterwirth (https://github.com/amphioxus) - https://www.amphioxus.org/content/timelapse-time-stamp-overlay
+
 ## Some helpful Python scripts for achieving a timelapse with your Rapsberry Pi Camera
 
 ```timelapse.py``` is the main script
@@ -56,3 +59,9 @@ crontab -e
 0 4 * * * python3 /home/pi/Camera/timelapse.py 60 1 /home/pi/Camera >> /home/pi/Camera/output.log 2>$
 ```
 #### CTRL+X and 'y' to confirm saved changes
+
+## Some helpful links
+* https://crontab.guru/
+* https://www.raspberrypi.org/documentation/usage/camera/raspicam/
+* https://projects.raspberrypi.org/en/projects/getting-started-with-picamera
+* https://picamera.readthedocs.io/en/release-1.10/api_camera.html
