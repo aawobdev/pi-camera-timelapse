@@ -2,17 +2,20 @@
 
 ## Some helpful Python scripts for achieving a timelapse with your Rapsberry Pi Camera
 
-### 1. ```timelapse.py``` is the main script
-### 2. Dependencies on ```video_stitcher.py``` and ```timestamper.py```
-### 3. Python lib dependencies are:
+### ```timelapse.py``` is the main script
+### Dependencies on ```video_stitcher.py``` and ```timestamper.py```
+### Python lib dependencies are:
 * ffmpeg (usually comes with Pi OS)
 * Pillow (aka PIL, also should ship with Pi)
-### 4. Initial Images will be outputted to imgXXXXXX.jpg inside the output folder
-### 5. Next, timestamps are drawn onto the images, they're stored as imgXXXXXX-resized.jpg
-### 6. Finally the imgXXXXXX-resized.jpg images are stitched into a video inside output/video folder as timelapse_YYYY-MM-DD_HHmmSS.mp4
-### 7. Modify main() inside timelapse.py to use what you need
+### Font dependencies
+* /usr/share/fonts/truetype/freefont/FreeMono.ttf
 
-## Usage
+### Initial Images will be outputted to imgXXXXXX.jpg inside the output folder
+### Next, timestamps are drawn onto the images, they're stored as imgXXXXXX-resized.jpg
+### Finally the imgXXXXXX-resized.jpg images are stitched into a video inside output/video folder as timelapse_YYYY-MM-DD_HHmmSS.mp4
+### Modify main() inside timelapse.py to use what you need
+
+## Usage examples
 ```
 python3 timelapse.py [length in seconds] [interval in seconds] [directory to output]
 ```
