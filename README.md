@@ -34,3 +34,21 @@ python3 timelapse.py 28800 3600 /home/pi/Camera
 ```
 python3 timelapse.py 60 1 /home/pi/Camera
 ```
+
+## Run in background
+
+### Example 4) Will do the following:
+* Run as cronjob for 1 minute with 1 second intervals
+* Output images and video to /home/pi/Camera
+* Run at 4AM every morning
+* Output the Logs to a file inside my Camera folder
+
+#### Open cron config
+```
+crontab -e
+```
+#### Add line to the end of the file
+```
+0 4 * * * python3 /home/pi/Camera/timelapse.py 60 1 /home/pi/Camera >> /home/pi/Camera/output.log 2>$
+```
+#### CTRL+X and 'y' to confirm saved changes
