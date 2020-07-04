@@ -9,7 +9,7 @@
 * Pillow (aka PIL, also should ship with Pi)
 ### 4. Initial Images will be outputted to imgXXXXXX.jpg inside the output folder
 ### 5. Next, timestamps are drawn onto the images, they're stored as imgXXXXXX-resized.jpg
-### 6. Finally images are stitched into a video inside output/video folder as timelapse_YYYY-MM-DD_HHmmSS.mp4
+### 6. Finally the imgXXXXXX-resized.jpg images are stitched into a video inside output/video folder as timelapse_YYYY-MM-DD_HHmmSS.mp4
 ### 7. Modify main() inside timelapse.py to use what you need
 
 ## Usage
