@@ -3,6 +3,8 @@
 Heavily inspired by:
 * Armin Hinterwirth (https://github.com/amphioxus) - https://www.amphioxus.org/content/timelapse-time-stamp-overlay
 
+[![PiCam Timelapse](https://i9.ytimg.com/vi/auIuiP3BAKg/mq3.jpg?sqp=CID0sPgF&rs=AOn4CLDYb8buEuuwAdGCJPEfYO4Z-TcCuQ)](https://youtu.be/auIuiP3BAKg)
+
 ## Some helpful Python scripts for achieving a timelapse with your Rapsberry Pi Camera
 
 ```timelapse.py``` is the main script
