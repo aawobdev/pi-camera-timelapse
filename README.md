@@ -45,6 +45,16 @@ python3 timelapse.py 28800 3600 /home/pi/Camera
 python3 timelapse.py 60 1 /home/pi/Camera
 ```
 
+## Rotation
+An additional OPTIONAL 4th command line argument has been added for rotation, it behaves as per [this](https://picamera.readthedocs.io/en/release-0.4/api.html#picamera.PiCamera.rotation). 
+
+Options are 0, 90, 180, and 270
+
+### Example 4) Run for 1 minute with 1 second intervals, output to /home/pi/Camera, rotation at 270
+```
+python3 timelapse.py 60 1 /home/pi/Camera 270
+```
+
 ## Run in background
 
 ### Example 4) Will do the following:
