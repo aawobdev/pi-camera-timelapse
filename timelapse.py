@@ -48,7 +48,7 @@ def main():
     clean_directory()
 
     # Check for rotation
-    if (sys.argv[4]):
+    if len(sys.argv) == 5:
         rotation = int(sys.argv[4])
     else:
         rotation = __default_rotation__
