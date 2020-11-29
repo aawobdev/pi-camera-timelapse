@@ -20,14 +20,17 @@ logging.basicConfig(format='%(asctime)s - %(message)s', datefmt='%d-%b-%y %H:%M:
 
 __output_folder_name__= sys.argv[3] + '/output'
 
+__default_rotation__ = 0
+
 def clean_directory():
     os.system('rm -f '+__output_folder_name__+'/*.jpg')
 
-def capture_images(length_in_seconds,interval_in_seconds):
+def capture_images(length_in_seconds,interval_in_seconds, rotation):
     count = length_in_seconds / interval_in_seconds
     logging.info('Taking {} shots...'.format(count))
     with picamera.PiCamera() as camera:
         camera.start_preview()
+        camera.rotation = rotation
         time.sleep(2)
         for filename in camera.capture_continuous(__output_folder_name__+'/img{counter:06d}.jpg'):
             time.sleep(interval_in_seconds) # wait <interval_in_seconds> seconds
@@ -44,9 +47,15 @@ def main():
     logging.info('Running clean script...')
     clean_directory()
 
+    # Check for rotation
+    if (sys.argv[4]):
+        rotation = int(sys.argv[4])
+    else:
+        rotation = __default_rotation__
+
     # Take pictures
     logging.info('Opening camera...')
-    capture_images(int(sys.argv[1]),int(sys.argv[2]))
+    capture_images(int(sys.argv[1]),int(sys.argv[2]), rotation)
     logging.info('Writing timestamps...')
 
     # Write timestamps to images
