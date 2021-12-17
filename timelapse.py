@@ -24,7 +24,7 @@ parser.add_argument('-length', '-l', action="store", dest="length", default=60, 
 parser.add_argument('-interval', '-i', action="store", dest="interval", default=1, help='Interval in seconds')
 parser.add_argument('-rotation', '-r', action="store", dest="rotation", default=0, help='Rotation 0, 90, 180, 270')
 parser.add_argument('-output', '-o', action="store", dest="output", default="/home/pi/Camera", help='Output full path')
-parser.add_argument('-night', '-n', action="store", dest="night", default=True, help='Night mode')
+parser.add_argument('-night', '-n', action="store", dest="night", default=False, help='Night mode')
 
 args = parser.parse_args()
 
@@ -43,11 +43,11 @@ __output_folder_name__= __output__ + '/output'
 def clean_directory():
     os.system('rm -R -f '+__output_folder_name__)
 
-def capture_images(length_in_seconds,interval_in_seconds, rotation, night_mode):
+def capture_images(length_in_seconds,interval_in_seconds, rotation, n_mode):
     count = length_in_seconds / interval_in_seconds
     logging.info('Taking {} shots...'.format(count))
     with picamera.PiCamera() as camera:
-        if(night_mode):
+        if(n_mode):
             print("Trying to set exposure to night")
             camera.exposure_mode = 'night'
             camera.iso = 800
