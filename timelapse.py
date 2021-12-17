@@ -12,7 +12,6 @@ import argparse
 from datetime import datetime
 import time
 import picamera
-import sys
 import os
 import logging
 import boto3
@@ -21,15 +20,24 @@ import json
 import argparse
 
 parser=argparse.ArgumentParser()
+parser.add_argument('-length', '-l', action="store", dest="length", default=60, help='Length in seconds')
+parser.add_argument('-interval', '-i', action="store", dest="interval", default=1, help='Interval in seconds')
+parser.add_argument('-rotation', '-r', action="store", dest="rotation", default=0, help='Rotation 0, 90, 180, 270')
+parser.add_argument('-output', '-o', action="store", dest="output", default="/home/pi/Camera", help='Output full path')
 parser.add_argument('-night', '-n', action="store", dest="night", default=False, help='Night mode')
+
 args = parser.parse_args()
 
 logging.basicConfig(format='%(asctime)s - %(message)s', datefmt='%d-%b-%y %H:%M:%S', level=logging.INFO)
 
-__output_folder_name__= sys.argv[3] + '/output'
-
 __default_rotation__ = 0
 __night_mode__ = bool(args.night)
+__length__ = int(args.length)
+__interval__ = int(args.interval)
+__rotation__ = int(args.rotation)
+__output__ = str(args.output)
+
+__output_folder_name__= __output__ + '/output'
 
 def clean_directory():
     os.system('rm -R -f '+__output_folder_name__)
@@ -85,14 +93,14 @@ def main():
     logging.info('Running clean script...')
 
     # Check for rotation
-    if len(sys.argv) == 5:
-        rotation = int(sys.argv[4])
+    if (__rotation__ != None):
+        rotation = __rotation__
     else:
         rotation = __default_rotation__
 
     # Take pictures
     logging.info('Opening camera...')
-    capture_images(int(sys.argv[1]),int(sys.argv[2]), rotation)
+    capture_images(__length__,__interval__, rotation)
     logging.info('Writing timestamps...')
 
     # Write timestamps to images
