@@ -48,7 +48,8 @@ def capture_images(length_in_seconds,interval_in_seconds, rotation):
     with picamera.PiCamera() as camera:
         if(__night_mode__):
             print("Trying to set exposure to night")
-            camera.exposure_mode = 'night'
+            camera.exposure_mode = 'off'
+            camera.iso = 800
         camera.start_preview()
         print(camera.exposure_mode)
         camera.rotation = rotation
