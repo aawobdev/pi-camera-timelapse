@@ -15,6 +15,9 @@ import picamera
 import sys
 import os
 import logging
+import boto3
+import glob
+import json
 
 logging.basicConfig(format='%(asctime)s - %(message)s', datefmt='%d-%b-%y %H:%M:%S', level=logging.INFO)
 
@@ -37,6 +40,27 @@ def capture_images(length_in_seconds,interval_in_seconds, rotation):
             count -= 1
             if count <= 0:
                 break
+
+def upload_to_s3(video_folder):
+
+    with open("crds.json") as f:
+        setup = json.load(f)
+        f.close()
+        AWS_ACCESS_KEY_ID = setup["AWS_ACCESS_KEY_ID"]
+        AWS_SECRET_ACCESS_KEY = setup["AWS_SECRET_ACCESS_KEY"]
+
+    session = boto3.Session(
+        aws_access_key_id=AWS_ACCESS_KEY_ID,
+        aws_secret_access_key=AWS_SECRET_ACCESS_KEY
+    )
+
+    # Let's use Amazon S3
+    s3 = session.resource('s3')
+    bucket_name='pi-camera-images'
+
+    for file in list(glob.glob(video_folder,'*.mp4')):
+        data = open(file,'rb')
+        s3.Bucket(bucket_name).put_object(Key=os.path.basename(file.name), Body=data)
     
 # [START]
 def main():
@@ -68,5 +92,8 @@ def main():
     stitch_video('timelapse_'+timestamp+'.mp4','warning',__output_folder_name__,'video','img%06d-resized.jpg')
     logging.info('Done!')
     logging.info('Creating video {} seconds to run'.format(str(time.time() - start_time)))
+    upload_to_s3(__output_folder_name__ + '/video')
+
+
 if __name__ == '__main__':
     main()
