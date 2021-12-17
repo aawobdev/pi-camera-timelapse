@@ -46,6 +46,7 @@ def clean_directory():
 def capture_images(length_in_seconds,interval_in_seconds, rotation, n_mode):
     count = length_in_seconds / interval_in_seconds
     logging.info('Taking {} shots...'.format(count))
+    print(n_mode)
     with picamera.PiCamera() as camera:
         if(n_mode):
             print("Trying to set exposure to night")
@@ -102,7 +103,8 @@ def main():
 
     # Take pictures
     logging.info('Opening camera...')
-    capture_images(__length__,__interval__, rotation,args.night)
+    capture_images(__length__,__interval__, rotation,__night_mode__)
+    print(__night_mode__)
     logging.info('Writing timestamps...')
 
     # Write timestamps to images
