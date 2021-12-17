@@ -26,7 +26,7 @@ __output_folder_name__= sys.argv[3] + '/output'
 __default_rotation__ = 0
 
 def clean_directory():
-    os.system('rm -f '+__output_folder_name__+'/*.jpg')
+    os.system('rm -R -f '+__output_folder_name__)
 
 def capture_images(length_in_seconds,interval_in_seconds, rotation):
     count = length_in_seconds / interval_in_seconds
@@ -58,10 +58,12 @@ def upload_to_s3(video_folder):
     s3 = session.resource('s3')
     bucket_name='pi-camera-images'
 
-    for file in list(glob.glob(video_folder,'*.mp4')):
+    for file in list(glob.glob(video_folder + '/*.mp4')):
+        file_ob = open(file,'r')
+        file_name=os.path.basename(file_ob.name)
+        file_ob.close()
         data = open(file,'rb')
-        s3.Bucket(bucket_name).put_object(Key=os.path.basename(file.name), Body=data)
-    
+        s3.Bucket(bucket_name).put_object(Key=file_name, Body=data)
 # [START]
 def main():
     # Start with cleanup
@@ -69,7 +71,6 @@ def main():
     if not os.path.exists(__output_folder_name__):
         os.makedirs(__output_folder_name__)
     logging.info('Running clean script...')
-    clean_directory()
 
     # Check for rotation
     if len(sys.argv) == 5:
@@ -93,6 +94,7 @@ def main():
     logging.info('Done!')
     logging.info('Creating video {} seconds to run'.format(str(time.time() - start_time)))
     upload_to_s3(__output_folder_name__ + '/video')
+    clean_directory()
 
 
 if __name__ == '__main__':
