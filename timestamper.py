@@ -8,8 +8,8 @@ from datetime import datetime
 import os
 
 def write_timestamps(font_large,font_small,output_folder):
-    font = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeMono.ttf", font_large)
-    fontsmall = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeMono.ttf", font_small)
+    font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", font_large)
+    fontsmall = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", font_small)
     fontcolor = (102, 255, 51)
     counter = 0
     for i in os.listdir(output_folder):
