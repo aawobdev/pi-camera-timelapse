@@ -18,12 +18,18 @@ import logging
 import boto3
 import glob
 import json
+import argparse
+
+parser=argparse.ArgumentParser()
+parser.add_argument('-night', '-n', action="store", dest="night", default=False, help='Night mode')
+args = parser.parse_args()
 
 logging.basicConfig(format='%(asctime)s - %(message)s', datefmt='%d-%b-%y %H:%M:%S', level=logging.INFO)
 
 __output_folder_name__= sys.argv[3] + '/output'
 
 __default_rotation__ = 0
+__night_mode__ = bool(args.night)
 
 def clean_directory():
     os.system('rm -R -f '+__output_folder_name__)
@@ -32,9 +38,14 @@ def capture_images(length_in_seconds,interval_in_seconds, rotation):
     count = length_in_seconds / interval_in_seconds
     logging.info('Taking {} shots...'.format(count))
     with picamera.PiCamera() as camera:
+        
         camera.start_preview()
         print(camera.exposure_mode)
         camera.rotation = rotation
+
+        if(__night_mode__):
+            camera.exposure_mode = 'night'
+        
         time.sleep(2)
         for filename in camera.capture_continuous(__output_folder_name__+'/img{counter:06d}.jpg'):
             time.sleep(interval_in_seconds) # wait <interval_in_seconds> seconds
@@ -81,7 +92,7 @@ def main():
 
     # Take pictures
     logging.info('Opening camera...')
-    capture_images(int(sys.argv[1]),int(sys.argv[2]), rotation)
+    capture_images(int(sys.argv[1]),int(sys.argv[2]), rotation, bool(sys.argv[]))
     logging.info('Writing timestamps...')
 
     # Write timestamps to images
