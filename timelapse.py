@@ -102,7 +102,7 @@ def main():
 
     # Take pictures
     logging.info('Opening camera...')
-    capture_images(__length__,__interval__, rotation,__night_mode__)
+    capture_images(__length__,__interval__, rotation,False)
     logging.info('Writing timestamps...')
 
     # Write timestamps to images
