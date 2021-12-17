@@ -31,7 +31,8 @@ args = parser.parse_args()
 logging.basicConfig(format='%(asctime)s - %(message)s', datefmt='%d-%b-%y %H:%M:%S', level=logging.INFO)
 
 __default_rotation__ = 0
-__night_mode__ = bool(args.night)
+__night_mode__ = args.night
+print(str(__night_mode__))
 __length__ = int(args.length)
 __interval__ = int(args.interval)
 __rotation__ = int(args.rotation)
@@ -42,11 +43,11 @@ __output_folder_name__= __output__ + '/output'
 def clean_directory():
     os.system('rm -R -f '+__output_folder_name__)
 
-def capture_images(length_in_seconds,interval_in_seconds, rotation):
+def capture_images(length_in_seconds,interval_in_seconds, rotation, night_mode):
     count = length_in_seconds / interval_in_seconds
     logging.info('Taking {} shots...'.format(count))
     with picamera.PiCamera() as camera:
-        if(__night_mode__ == True):
+        if(night_mode == True):
             print("Trying to set exposure to night")
             camera.exposure_mode = 'night'
             camera.iso = 800
@@ -99,7 +100,7 @@ def main():
 
     # Take pictures
     logging.info('Opening camera...')
-    capture_images(__length__,__interval__, rotation)
+    capture_images(__length__,__interval__, rotation,__night_mode__)
     logging.info('Writing timestamps...')
 
     # Write timestamps to images
