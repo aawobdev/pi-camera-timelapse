@@ -33,7 +33,6 @@ logging.basicConfig(format='%(asctime)s - %(message)s', datefmt='%d-%b-%y %H:%M:
 
 __default_rotation__ = 0
 __night_mode__ = bool(args.night)
-print(str(__night_mode__))
 __length__ = int(args.length)
 __interval__ = int(args.interval)
 __rotation__ = int(args.rotation)
@@ -105,7 +104,6 @@ def main():
     # Take pictures
     logging.info('Opening camera...')
     capture_images(__length__,__interval__, rotation,__night_mode__)
-    print(__night_mode__)
     logging.info('Writing timestamps...')
 
     # Write timestamps to images
