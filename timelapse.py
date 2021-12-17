@@ -33,6 +33,7 @@ def capture_images(length_in_seconds,interval_in_seconds, rotation):
     logging.info('Taking {} shots...'.format(count))
     with picamera.PiCamera() as camera:
         camera.start_preview()
+        print(camera.exposure_mode)
         camera.rotation = rotation
         time.sleep(2)
         for filename in camera.capture_continuous(__output_folder_name__+'/img{counter:06d}.jpg'):
