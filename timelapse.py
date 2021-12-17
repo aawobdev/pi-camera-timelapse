@@ -52,6 +52,7 @@ def capture_images(length_in_seconds,interval_in_seconds, rotation):
         camera.rotation = rotation
 
         if(__night_mode__):
+            print("Trying to set exposure to night")
             camera.exposure_mode = 'night'
         
         time.sleep(2)
