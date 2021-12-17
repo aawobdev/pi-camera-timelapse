@@ -31,7 +31,7 @@ args = parser.parse_args()
 logging.basicConfig(format='%(asctime)s - %(message)s', datefmt='%d-%b-%y %H:%M:%S', level=logging.INFO)
 
 __default_rotation__ = 0
-__night_mode__ = args.night
+__night_mode__ = bool(args.night)
 print(str(__night_mode__))
 __length__ = int(args.length)
 __interval__ = int(args.interval)
@@ -102,7 +102,7 @@ def main():
 
     # Take pictures
     logging.info('Opening camera...')
-    capture_images(__length__,__interval__, rotation,True)
+    capture_images(__length__,__interval__, rotation,__night_mode__)
     logging.info('Writing timestamps...')
 
     # Write timestamps to images
