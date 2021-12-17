@@ -25,7 +25,7 @@ parser.add_argument('-interval', '-i', action="store", dest="interval", default=
 parser.add_argument('-rotation', '-r', action="store", dest="rotation", default=0, help='Rotation 0, 90, 180, 270')
 parser.add_argument('-output', '-o', action="store", dest="output", default="/home/pi/Camera", help='Output full path')
 parser.add_argument('-night', '-n', action="store_true", dest="night", help='Night mode')
-parser.add_argument('-day', '-n', action="store_false", dest="night", help='Day mode')
+parser.add_argument('-day', '-d', action="store_false", dest="night", help='Day mode')
 
 args = parser.parse_args()
 
