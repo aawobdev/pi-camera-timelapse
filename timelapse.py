@@ -46,7 +46,7 @@ def capture_images(length_in_seconds,interval_in_seconds, rotation):
     count = length_in_seconds / interval_in_seconds
     logging.info('Taking {} shots...'.format(count))
     with picamera.PiCamera() as camera:
-        if(__night_mode__):
+        if(__night_mode__ == True):
             print("Trying to set exposure to night")
             camera.exposure_mode = 'night'
             camera.iso = 800
