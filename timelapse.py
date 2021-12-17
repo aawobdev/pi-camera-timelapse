@@ -91,7 +91,7 @@ def main():
 
     # Take pictures
     logging.info('Opening camera...')
-    capture_images(int(sys.argv[1]),int(sys.argv[2]), rotation, bool(sys.argv[]))
+    capture_images(int(sys.argv[1]),int(sys.argv[2]), rotation)
     logging.info('Writing timestamps...')
 
     # Write timestamps to images
